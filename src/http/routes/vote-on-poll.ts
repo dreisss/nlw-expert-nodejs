@@ -19,7 +19,32 @@ export async function voteOnPoll(app: FastifyInstance) {
 
     let { sessionId } = request.cookies
 
-    if (!sessionId) {
+    if (sessionId) {
+      const userPreviousOnPoll = await prisma.vote.findUnique({
+        where: {
+          // biome-ignore lint/style/useNamingConvention: prisma combination default
+          sessionId_pollId: {
+            sessionId,
+            pollId,
+          },
+        },
+      })
+
+      if (
+        !userPreviousOnPoll ||
+        userPreviousOnPoll.pollOptionId === pollOptionId
+      ) {
+        return reply
+          .status(400)
+          .send({ message: 'You already voted on this poll.' })
+      }
+
+      await prisma.vote.delete({
+        where: {
+          id: userPreviousOnPoll.id,
+        },
+      })
+    } else {
       sessionId = randomUUID()
 
       reply.setCookie('sessionId', sessionId, {
