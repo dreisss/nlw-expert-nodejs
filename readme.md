@@ -1,3 +1,3 @@
 # NLW Expert
 
-Back-end application developed on rocketseat's nlw expert (nodejs trail).
+Back-end application developed on Rocketseat's `nlw expert` (nodejs trail).
