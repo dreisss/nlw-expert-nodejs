@@ -1,5 +1,5 @@
-<div align="center">
-  <img src="./.github/assets/nlw-expert.webp" />
+<div>
+  <img src="./.github/assets/nlw-expert.svg" height="48" />
 </div>
 
 <br />
